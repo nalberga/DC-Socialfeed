@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Social Feed</title>
+        <link rel="stylesheet" type="text/css" href="index.css" />
+ </head>
+ <header>
+   <h1>Social Hacker</h1>
+ </header>
+ <body>
+   <form>
+     <label> Username:
+       <input type="text" id="username" placeholder="username" name="USERNAME">
+     </label>
+     <br />
+     <br />
+     <label> Image/Link:
+       <input type="url" width="" height="" id="url" name="URL"></label>
+       <br />
+       <br />
+     <label>Submit additional information:
+     <br />
+     <br />
+       <textarea id="txt" name="txt" rows="10" cols="100" wrap="virtual" placeholder="Enter your text" maxlength="100"></textarea></label>
+     <br />
+     <br />
+       <input type="button" value="Click me" onclick="getData();" name="btn" id="btn">
+       <input type="reset" value="reset">
+   </form>
+     <br />
+     <div id="output">
+   </div>
+ <script>
+     var getText = [];
+     var getData = function() {
+     var inputText = document.getElementById("username");
+     var outputText = document.getElementById("output");
+     var inputLink = document.getElementById("url");
+     var inputData = document.getElementById("txt");
+
+     var content = inputText.value;
+     var contentLink = inputLink.value;
+     var contentData = inputData.value;
+
+      if(content && contentData || content &&  contentLink) {
+         getText.push({text : content, date_submitted : Date()});
+         var outputHtml = document.createElement("p");
+         outputHtml.innerHTML = content;
+         outputText.append(outputHtml);
+         console.log(getText);
+         getText.push({src : contentLink, date_submitted : Date()});
+         var outputHtml = document.createElement("img");
+         outputHtml.src = contentLink;
+         outputText.append(outputHtml);
+         console.log(getText);
+         getText.push({text : contentData, date_submitted : Date()});
+         var outputHtml = document.createElement("p");
+         outputHtml.innerHTML = contentData;
+         outputText.append(outputHtml);
+         inputData.value = "";
+         console.log(getText);
+      
+      } else {
+         alert("Need username");
+      
+   
+        }
+   }
+ </script>
+ </body>
+</html>
