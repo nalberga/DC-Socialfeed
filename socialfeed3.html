@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Social Feed</title>
+        <link rel="stylesheet" type="text/css" href="index.css" />
+ </head>
+ <header>
+   <h1>Social Hacker</h1>
+ </header>
+ <body>
+   <form>
+     <label> Username:
+       <input type="text" id="username" placeholder="username" name="USERNAME">
+     </label>
+     <br />
+     <br />
+     <label> Image/Link:
+       <input type="url" width="50" height="50" id="url" name="URL"></label>
+       <br />
+       <br />
+     <label>Additional information:
+     <br />
+     <br />
+       <textarea id="txt" name="txt" rows="10" cols="100" wrap="virtual" placeholder="Enter your text" maxlength="100"></textarea></label>
+     <br />
+     <br />
+       <input type="button" value="Submit" onclick="getData();" name="btn" id="btn">
+       <input type="reset" value="reset">
+       <input type="submit" name="submitDelete" value="Delete Row">
+   </form>
+   <br />
+   <br />
+     <table id="displayUserInput">
+      <tr>
+        <th>Username</th>
+        <th>image/Link</th>
+        <th>Information</th>
+        </th>
+     </table>
+    
+ <script>
+     
+    
+     var inputText = document.getElementById("username");
+     var outputText = document.getElementById("output");
+     var inputLink = document.getElementById("url");
+     var inputData = document.getElementById("txt");
+     
+
+     var getData = function() {
+
+     var content = inputText.value;
+     var contentLink = inputLink.value;
+     var contentData = inputData.value;
+
+      if(content !="" && contentData !="" && contentLink !="") {
+
+         var newTable = document.getElementById("displayUserInput");
+         var addRow = newTable.insertRow(newTable.rows.length);
+         var contentCell = addRow.insertCell (0);
+         var contentLinkCell = addRow.insertCell (1);
+         var contentDataCell = addRow.insertCell (2);
+
+         contentCell.innerHTML = content;
+         contentLinkCell.innerHTML = contentLink;
+         contentDataCell.innerHTML = contentData;
+      
+      } else {
+         alert("One or more input fields are empty");
+      }
+        
+
+    }
+  </script>
+ </body>
+</html>

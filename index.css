@@ -1,3 +1,32 @@
 html {
   background-color: azure;
 }
+#output {
+width: 50%;
+height: 100px;
+object-fit: scale-down;
+
+
+}
+
+table#displayUserInput {
+  border-bottom: 1px solid #dddddd;
+  width: 100%;
+  border-collapse: collapse;
+
+}
+table#displayUserInput th {
+  background-color: cornflowerblue
+}
+table#displayUserInput tr, th {
+  padding: 8px;
+  border-bottom: 10x solid #dddddd;
+  border-collapse: collapse;
+  text-align: center;
+  
+  
+}
+
+table#displayUserInput tr:hover {
+  background-color: #dddddd;
+}
