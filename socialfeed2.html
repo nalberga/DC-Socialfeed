@@ -28,7 +28,7 @@
        <textarea id="txt" name="txt" rows="10" cols="100" wrap="virtual" placeholder="Enter your text" maxlength="50"></textarea></label>
      <br />
      <br />
-       <input type="button" value="Submit" onclick="getData()" name="btn" id="btn">
+       <input type="button" value="Add Row" onclick="getData()" name="btn" id="btn">
        <input type="reset" value="reset">
        <input type="submit" name="submitDelete" value="Delete Row" onclick="deleteSelectedRow()">
        <input type="submit" name="editRow" value="Edit Row" onclick="editSelectedRow()">
@@ -45,70 +45,81 @@
      </table>
      
  <script>
-     var getText = [];
-     var getData = function() {
-     var inputText = document.getElementById("username");
-     var outputText = document.getElementById("displayUserInput");
-     var inputLink = document.getElementById("url");
-     var inputEmail = document.getElementById("email");
-     var inputData = document.getElementById("txt");
+          var getText = [];
 
-     var content = inputText.value;
-     var contentLink = inputLink.value;
-     var contentData = inputData.value;
-     var contentEmail = inputEmail.value;
+    var getData = function() {
 
-     if(content !="" && contentData !="" && contentLink !="" && contentEmail !="") {
+          var inputText = document.getElementById("username");
+          var outputText = document.getElementById("displayUserInput");
+          var inputLink = document.getElementById("url");
+          var inputEmail = document.getElementById("email");
+          var inputData = document.getElementById("txt");
 
-         getText.push({text : content, date_submitted : Date()});
+          var content = inputText.value;
+          var contentLink = inputLink.value;
+          var contentData = inputData.value;
+          var contentEmail = inputEmail.value;
 
-         var newTable = document.getElementById("displayUserInput");
-         var addRow = newTable.insertRow(newTable.rows.length);
-         var contentCell = addRow.insertCell (0);
-         contentCell.innerHTML = content;
-         console.log(getText);
+        if(content !="" && contentData !="" && contentLink !="" && contentEmail !="") {
 
-         getText.push({email: contentEmail, date_submitted : Date()});
-         var contentEmailCell = addRow.insertCell (1);
-         contentEmailCell.innerHTML = contentEmail;
-         console.log(getText);
+          // push object to getText(Array):
+           getText.push({text : content, date_submitted : Date()});
 
-         getText.push({src : contentLink, date_submitted : Date()});
-         var contentLinkCell = addRow.insertCell (2);
-         var outputHtml = document.createElement("img");
-         outputHtml.src = contentLink;
-         contentLinkCell.appendChild(outputHtml);
-         outputHtml.style.cssText="max-width:150px;max-height:150px";
-         console.log(getText);
+          //Find a <table> element with id="displayUserInput":
+           var newTable = document.getElementById("displayUserInput");
+          //create an empty <tr> element and add it to the 1st position of the table:
+
+           var addRow = newTable.insertRow(newTable.rows.length);
+          //insert new cells (<td> elements) at the 1st, 2nd, 3rd and 4th position of the new <tr> element:
+           var contentCell = addRow.insertCell (0);
+         // add username text to the new cells:
+           contentCell.innerHTML = content;
+           console.log(getText);
+
+           getText.push({email: contentEmail, date_submitted : Date()});
+           var contentEmailCell = addRow.insertCell (1);
+           contentEmailCell.innerHTML = contentEmail;
+           console.log(getText);
+
+           getText.push({src : contentLink, date_submitted : Date()});
+           var contentLinkCell = addRow.insertCell (2);
+           var outputHtml = document.createElement("img");
+           outputHtml.src = contentLink;
+           contentLinkCell.appendChild(outputHtml);
+           outputHtml.style.cssText="max-width:150px;max-height:150px";
+           console.log(getText);
          
-         getText.push({text : contentData, date_submitted : Date()});
-         var contentDataCell = addRow.insertCell (3);
-         contentDataCell.innerHTML = contentData;
-         console.log(getText);
+           getText.push({text : contentData, date_submitted : Date()});
+           var contentDataCell = addRow.insertCell (3);
+           contentDataCell.innerHTML = contentData;
+           console.log(getText);
 
-        displayselectedRowCellValuesOnInputFields();
+           displayselectedRowCellValuesOnInputFields();
 
       } else {
         alert("One or more input fields are empty");
       }
     }
-    var newTable = document.getElementById("displayUserInput");
-          var selectedRowIndex;
-         function displayselectedRowCellValuesOnInputFields()  {
-          
-          var tbRowlength = newTable.rows.length;
+           var newTable = document.getElementById("displayUserInput");
+           var selectedRowIndex;
+           function displayselectedRowCellValuesOnInputFields()  {
+          //Start looping from the second row
+           var tbRowlength = newTable.rows.length;
             for(var i = 1; i < tbRowlength; i++)  {
-              newTable.rows[i].onclick = function() {
-            selectedRowIndex = this.rowIndex;
 
-        document.getElementById("username").value = this.cells[0].innerHTML;
-        document.getElementById("email").value = this.cells[1].innerHTML;
-        document.getElementById("url").value = this.cells[2].innerHTML;
-        document.getElementById("txt").value = this.cells[3].innerHTML;
+           newTable.rows[i].onclick = function() {
+           selectedRowIndex = this.rowIndex;
+           
 
-              };
+          //Display Selected row in inout fields
+           document.getElementById("username").value = this.cells[0].innerHTML;
+           document.getElementById("email").value = this.cells[1].innerHTML;
+           document.getElementById("url").value = this.cells[2].innerHTML;
+           document.getElementById("txt").value = this.cells[3].innerHTML;
+
+           };
             }
-        }
+            }
         
         function editSelectedRow() {
           var inputText = document.getElementById("username").value;
@@ -122,7 +133,7 @@
           newTable.rows[selectedRowIndex].cells[3].innerHTML = inputData;         
         
         }
-
+          //Delete selected row:
         function deleteSelectedRow()  {
           newTable.deleteRow(selectedRowIndex);
         
