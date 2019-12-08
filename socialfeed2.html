@@ -141,4 +141,41 @@
 
   </script>
  </body>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="./index.js"></script>
+  <script type="text/javascript">
+
+        var successFunction = function(response){
+            for(let i = 0; i< response.length; i++) {
+                let item = createPostItem(response[i]);
+                insertIntoFeed(item);
+            }
+        };
+        var errorFunction = function(xhr, error){
+            console.log(error);
+        }
+        getPosts(successFunction ,errorFunction );
+        function submitPost() {
+            event.preventDefault()
+            let data = {  
+                username: $("#username").val(),
+                email : $("#email").val(),
+                image : $("#image").val(),
+                text : $("#txt").val()
+                
+            };
+            var succcesInsert = function(response) {
+                let item = createPostItem(response);
+                insertIntoFeed(item);
+            };
+            var errorInsert = function(xhr, error){
+                console.log(error);
+            }
+            insertPost(data, succcesInsert, errorInsert);
+        }
+        
+  </script>
+
 </html>
