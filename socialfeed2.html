@@ -28,7 +28,7 @@
        <textarea id="txt" name="txt" rows="10" cols="100" wrap="virtual" placeholder="Enter your text" maxlength="50"></textarea></label>
      <br />
      <br />
-       <input type="button" value="Add Row" onclick="getData()" name="btn" id="btn">
+       <input type="button" value="Add Row" onclick="getData(); submitPost()" name="btn" id="btn">
        <input type="reset" value="reset">
        <input type="submit" name="submitDelete" value="Delete Row" onclick="deleteSelectedRow()">
        <input type="submit" name="editRow" value="Edit Row" onclick="editSelectedRow()">
@@ -141,16 +141,23 @@
 
   </script>
  </body>
+ <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+ 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
   <script src="./index.js"></script>
   <script type="text/javascript">
+  
+
+        var api_url = 'http://localhost:3000/';
 
         var successFunction = function(response){
             for(let i = 0; i< response.length; i++) {
                 let item = createPostItem(response[i]);
                 insertIntoFeed(item);
+
             }
         };
         var errorFunction = function(xhr, error){
@@ -162,20 +169,58 @@
             let data = {  
                 username: $("#username").val(),
                 email : $("#email").val(),
-                image : $("#image").val(),
+                image : $("#url").val(),
                 text : $("#txt").val()
                 
             };
             var succcesInsert = function(response) {
                 let item = createPostItem(response);
                 insertIntoFeed(item);
+                console.log(response);
             };
             var errorInsert = function(xhr, error){
                 console.log(error);
             }
             insertPost(data, succcesInsert, errorInsert);
         }
-        
+        function getPosts(successCallback, errorCallback) {
+
+        $.ajax({
+          url: api_url + 'api/posts',
+          success: successCallback,
+          error : errorCallback
+});
+}
+
+        function insertPost(data, successCallback, errorCallback) {
+
+        $.ajax({
+          type: "POST",
+          data: data,
+          url: api_url + 'api/posts',
+          success: successCallback,
+          error : errorCallback
+  });
+}
+
+        function createPostItem(data) {
+          let item = `
+            <div class="card card-body bg-light">
+              <div>${data.username}</div>
+              <div>${data.email}</div>
+              <div>${data.image}</div>
+              <div>${data.text}</div>
+
+            </div>
+`
+
+          return item;
+}
+
+        function insertIntoFeed(item) {
+          $('#displayUserInput').append(item);
+}
+
   </script>
 
 </html>

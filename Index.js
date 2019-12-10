@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(cors());
 
  let post = [
   {
@@ -13,15 +15,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
   text: "social Hacker site is the best"
   }
 ]
-app.get('/api/posts', (req, res) => {
+app.get('/api/posts', cors(), (req, res) => {
 res.json(post);
 })
 
-
-app.post('/api/posts', (req,res) => {
+app.post('/api/posts', cors(), (req,res) => {
     
-
-
       const data = {
         username: req.body.username,
         email:req.body.email,
@@ -38,53 +37,9 @@ app.post('/api/posts', (req,res) => {
     
   });
 
-
-var api_url = 'http://localhost:3000/';
-
-
-function getPosts(successCallback, errorCallback) {
-
-    $.ajax({
-        url: api_url + 'api/posts',
-        success: successCallback,
-        error : errorCallback
-    });
-}
-
-function insertPost(data, successCallback, errorCallback) {
-
-    $.ajax({
-        type: "POST",
-        data: data,
-        url: api_url + 'api/posts',
-        success: successCallback,
-        error : errorCallback
-      });
-}
-
-function createPostItem(data) {
-    let item = `
-        <div class="card card-body bg-light">
-            <div>${data.username}</div>
-            <div>${data.email}</div>
-            <div>${data.image}</div>
-            <div>${data.text}</div>
-
-        </div>
-    `
-
-    return item;
-}
-
-function insertIntoFeed(item) {
-    $('#displayUserInput').append(item);
-}
-
-
-
 app.listen(3000, function() {
   console.log('The server is Listening...')
-})
+});
 
 
 
