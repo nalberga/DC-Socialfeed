@@ -1,0 +1,26 @@
+{
+  "name": "socialfeed",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nalberga/DC-Socialfeed.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nalberga/DC-Socialfeed/issues"
+  },
+  "homepage": "https://github.com/nalberga/DC-Socialfeed#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg-promise": "^10.3.1"
+  }
+}
+
